@@ -18,7 +18,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-     protected $table = 'users';
+    protected $table = 'users';
     protected $primaryKey = 'id_user';
 
     protected $fillable = [
@@ -31,6 +31,15 @@ class User extends Authenticatable
     public function level()
     {
         return $this->belongsTo(Level::class, 'id_level');
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
+    public function getAuthIdentifier()
+    {
+        return $this->id_user;
     }
 
     /**
@@ -51,7 +60,6 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'username' => 'datetime',
             'password' => 'hashed',
         ];
     }

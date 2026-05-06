@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="layout-menu-fixed layout-compact" data-assets-path="/assets/" data-template="vertical-menu-template-free">
+<html lang="en" class="layout-menu-fixed layout-compact" data-assets-path="/assets/"
+    data-template="vertical-menu-template-free">
 
 <head>
     <title>Laundry</title>
@@ -12,10 +13,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link 
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" 
-        rel="stylesheet" 
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
 
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/iconify-icons.css') }}" />
@@ -23,6 +22,13 @@
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href='https://cdn.boxicons.com/3.0.8/fonts/filled/boxicons-filled.min.css' rel='stylesheet'>
+    <link href='https://cdn.boxicons.com/3.0.8/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}">
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
@@ -53,32 +59,44 @@
 
                 <ul class="menu-inner">
                     <li class="menu-item">
-                        <a href="{{ route('dashboard') }}" class="menu-link">
-                            <i class="menu-icon bx bx-home-smile"></i>
-                            <div>Dashboard</div>
+                        <a href="{{ route('admin.pelanggan.pelanggan') }}" class="menu-link">
+                            <i class="menu-icon bx bx-user"></i>
+                            <div>Pelanggan</div>
                         </a>
                     </li>
 
                     <li class="menu-item">
-                        <a href="{{ route('layanan') }}" class="menu-link">
-                            <i class="menu-icon bx bx-basket"></i>
-                            <div>Layanan</div>
+                        <a href="#" class="menu-link">
+                            <i class="menu-icon bx bx-data"></i>
+                            <div>Pengunaan Listrik</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="{{ route('pelanggan') }}" class="menu-link">
-                            <i class="menu-icon bx bx-user"></i>
-                            <div>Member</div>
+                        <a href="#" class="menu-link">
+                            <i class="menu-icon bx bx-receipt"></i>
+                            <div>Tagihan</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="{{ route('laundry') }}" class="menu-link">
+                        <a href="#" class="menu-link">
                             <i class="menu-icon bx bx-credit-card"></i>
-                            <div>Transaksi</div>
+                            <div>Pembayaran</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="{{ route('user') }}" class="menu-link">
+                        <a href="#" class="menu-link">
+                            <i class="menu-icon bx bx-file" /></i>
+                            <div>Laporan</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('admin.tarif.tarif') }}" class="menu-link">
+                            <i class="menu-icon bx bx-dollar-circle"></i>
+                            <div>Tarif</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
                             <i class="menu-icon bx bx-user"></i>
                             <div>Admin</div>
                         </a>
@@ -160,8 +178,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>,
-                            made with ❤️ by <a href=""
-                                class="footer-link">Laundry</a>
+                            made with ❤️ by <a href="" class="footer-link">Laundry</a>
                         </div>
 
                         <div class="d-none d-lg-inline-block">
@@ -177,7 +194,19 @@
 
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-
+    <style>
+        .bx {
+            font-family: 'boxicons' !important;
+            font-weight: normal;
+            font-style: normal;
+            font-variant: normal;
+            line-height: 1;
+            display: inline-block;
+            text-transform: none;
+            speak: none;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
     <!-- JS -->
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>

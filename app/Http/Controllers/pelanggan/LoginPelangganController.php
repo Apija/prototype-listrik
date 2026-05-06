@@ -6,24 +6,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
-class AuthController extends Controller
+class LoginPelangganController extends Controller
 {
-    public function admin()
-    {
-        return view('admin.index');
-    }
-
-    public function petugas()
-    {
-        return view('petugas.index');
-    }
 
     //menampilkan login
-    public function login()
+    public function index()
     {
         return view('login');
     }
-    
+
     //verifikasi use and password
     public function autheticate(Request $request)
     {
@@ -43,26 +34,13 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($infologin)) {
-
-            // Ambil user yang sedang login
-            $user = Auth::user();
-
-            // Arahkan sesuai role
-            if ($user->id_level == 1) {
-                return redirect()->route('admin.index'); // admin dashboard
-            }
-
-            if ($user->id_level == 2) {
-                return redirect()->route('petugas.index'); // petugas dashboard
-            }
-
-            // Jika role tidak dikenali
-            Auth::logout();
-            return redirect('/login')->withErrors('Role tidak dikenal.');
+            return redirect()->route('laundry');
+        } else {
+            // return 'gagal'
+            return redirect('/')->withErrors('username dan password tidak valid');
         }
-
-        return redirect('/login')->withErrors('username dan password tidak valid');
     }
+
 
     // logout
     public function logout(Request $request)

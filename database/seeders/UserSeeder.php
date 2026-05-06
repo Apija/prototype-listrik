@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             ],
             [
             'username' => 'petugas',
-            'password' => Hash::make('123'),
+            'password' => Hash::make('456'),
             'nama_admin' => 'Petugas',
             'id_level' => 2
             ]

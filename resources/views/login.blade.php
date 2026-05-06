@@ -1,4 +1,4 @@
-@extends('layout.main2')
+@extends('layout.loginmain')
 
 @section('content')
 <style>
@@ -56,12 +56,12 @@
                         </div>
                         
                         <div class="card-body">
-                            <form action="#" method="post" role="form">
+                            <form action="{{ route('login.proses') }}" method="post" role="form">
                                 @csrf
                                 <div class="mb-3">
-                                    <label class="form-label text-xs font-weight-bold">Username / Email</label>
+                                    <label class="form-label text-xs font-weight-bold">Username</label>
                                     <input type="text" name="username" class="form-control form-control-admin" 
-                                           placeholder="admin_id" required autofocus>
+                                           placeholder="username" required autofocus>
                                 </div>
                                 
                                 <div class="mb-3">
