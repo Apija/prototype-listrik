@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-6">
-                                    <label class="col-sm-2 col-form-label" for="id_tarif">Daya :</label>
+                                    <label class="col-sm-2 col-form-label" for="id_tarif">Daya </label>
                                     <div class="col-sm-10">
                                         <select class="form-select @error('id_tarif') is-invalid @enderror" id="id_tarif"
                                             name="id_tarif">

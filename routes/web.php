@@ -4,6 +4,7 @@ use App\Http\Controllers\pelanggan\LoginPelangganController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\TarifController;
 use App\Http\Controllers\Admin\PelangganController;
+use App\Http\Controllers\Admin\PenggunaanController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +33,13 @@ Route::post('/admin/pelanggan/store', [PelangganController::class, 'store'])->na
 Route::get('/admin/pelanggan/edit/{id}', [PelangganController::class, 'edit'])->name('admin.pelanggan.edit');
 Route::put('/admin/pelanggan/update/{id}', [PelangganController::class, 'update'])->name('admin.pelanggan.update');
 Route::delete('/admin/pelanggan/delete/{id}', [PelangganController::class, 'delete'])->name('admin.pelanggan.delete');
+//pengunaan CRUD
+Route::get('/admin/penggunaan', [PenggunaanController::class, 'penggunaan'])->name('admin.penggunaan.penggunaan');
+Route::get('/admin/penggunaan/create', [PenggunaanController::class, 'create'])->name('admin.penggunaan.create');
+Route::post('/admin/penggunaan/store', [PenggunaanController::class, 'store'])->name('admin.penggunaan.store');
+Route::get('/admin/penggunaan/edit/{id}', [PenggunaanController::class, 'edit'])->name('admin.penggunaan.edit');
+Route::put('/admin/penggunaan/update/{id}', [PenggunaanController::class, 'update'])->name('admin.penggunaan.update');
+Route::delete('/admin/penggunaan/delete/{id}', [PenggunaanController::class, 'delete'])->name('admin.penggunaan.delete');
+//tagihan CRUD
 
 Route::get('/petugas', [AuthController::class, 'petugas'])->name('petugas.index');

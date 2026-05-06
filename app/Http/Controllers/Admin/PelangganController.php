@@ -14,7 +14,7 @@ class PelangganController extends Controller
      */
     public function pelanggan()
     {
-        $tarif = Tarif::all();
+        $pelanggan = Tarif::all();
         $pelanggan = Pelanggan::with(['tarif'])->get();
         $query = Pelanggan::with(['tarif']);
 

@@ -66,7 +66,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="#" class="menu-link">
+                        <a href="{{ route('admin.penggunaan.penggunaan') }}" class="menu-link">
                             <i class="menu-icon bx bx-data"></i>
                             <div>Pengunaan Listrik</div>
                         </a>
