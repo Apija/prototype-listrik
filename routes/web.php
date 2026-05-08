@@ -9,6 +9,13 @@ use App\Http\Controllers\Admin\TagihanController;
 use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\UserController;
 
+//petugas
+use App\Http\Controllers\Petugas\PetugasPelangganController;
+use App\Http\Controllers\Petugas\PetugasPenggunaanController;
+use App\Http\Controllers\Petugas\PetugasTagihanController;
+use App\Http\Controllers\Petugas\PetugasPembayaranController;
+
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -65,3 +72,22 @@ Route::put('/admin/user/update/{id}', [UserController::class, 'update'])->name('
 Route::delete('/admin/user/delete/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
 
 Route::get('/petugas', [AuthController::class, 'petugas'])->name('petugas.index');
+//pelanggan petugas
+Route::get('/petugas/pelanggan', [PetugasPelangganController::class, 'pelanggan'])->name('petugas.pelanggan.pelanggan');
+Route::get('/petugas/pelanggan/show/{id}', [PetugasPelangganController::class, 'show'])->name('petugas.pelanggan.show');
+//penggunaan petugas
+Route::get('/petugas/penggunaan', [PetugasPenggunaanController::class, 'penggunaan'])->name('petugas.penggunaan.penggunaan');
+Route::get('/petugas/penggunaan/create', [PetugasPenggunaanController::class, 'create'])->name('petugas.penggunaan.create');
+Route::post('/petugas/penggunaan/store', [PetugasPenggunaanController::class, 'store'])->name('petugas.penggunaan.store');
+Route::get('/petugas/penggunaan/edit/{id}', [PetugasPenggunaanController::class, 'edit'])->name('petugas.penggunaan.edit');
+Route::put('/petugas/penggunaan/update/{id}', [PetugasPenggunaanController::class, 'update'])->name('petugas.penggunaan.update');
+Route::delete('/petugas/penggunaan/delete/{id}', [PetugasPenggunaanController::class, 'delete'])->name('petugas.penggunaan.delete');
+//tagihan petugas
+Route::get('/petugas/tagihan', [PetugasTagihanController::class, 'tagihan'])->name('petugas.tagihan.tagihan');
+Route::get('/petugas/tagihan/show/{id}', [PetugasTagihanController::class, 'show'])->name('petugas.tagihan.show');
+//pembayaran petugas
+Route::get('/petugas/pembayaran', [PetugasPembayaranController::class, 'pembayaran'])->name('petugas.pembayaran.pembayaran');
+Route::get('/petugas/pembayaran/show/{id}', [PetugasPembayaranController::class, 'show'])->name('petugas.pembayaran.show');
+Route::get('/petugas/pembayaran/create', [PetugasPembayaranController::class, 'create'])->name('petugas.pembayaran.create');
+Route::post('/petugas/pembayaran/store', [PetugasPembayaranController::class, 'store'])->name('petugas.pembayaran.store');
+Route::delete('/petugas/pembayaran/delete/{id}', [PetugasPembayaranController::class, 'delete'])->name('petugas.pembayaran.delete');
