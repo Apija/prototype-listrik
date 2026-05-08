@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->date('tgl_pembayaran');
             $table->integer('bulan_bayar');
+            $table->integer('total_tagihan');
             $table->decimal('biaya_admin', 10, 2);
             $table->decimal('total_bayar', 12, 2);
             $table->timestamps();

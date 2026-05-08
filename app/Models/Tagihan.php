@@ -17,7 +17,10 @@ class Tagihan extends Model
         'jumlah_meter',
         'status'
     ];
-
+    public function pelanggan()
+    {
+        return $this->belongsTo(Pelanggan::class, 'id_pelanggan');
+    }
     public function penggunaan()
     {
         return $this->belongsTo(Penggunaan::class, 'id_penggunaan');

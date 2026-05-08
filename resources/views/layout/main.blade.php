@@ -72,13 +72,13 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="#" class="menu-link">
+                        <a href="{{ route('admin.tagihan.tagihan') }}" class="menu-link">
                             <i class="menu-icon bx bx-receipt"></i>
                             <div>Tagihan</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="#" class="menu-link">
+                        <a href="{{ route('admin.pembayaran.pembayaran') }}" class="menu-link">
                             <i class="menu-icon bx bx-credit-card"></i>
                             <div>Pembayaran</div>
                         </a>

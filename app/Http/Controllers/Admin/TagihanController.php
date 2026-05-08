@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tagihan;
+use App\Models\Penggunaan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -10,56 +12,68 @@ class TagihanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function tagihan()
     {
-        //
+        $tagihan = Tagihan::with(['pelanggan', 'penggunaan'])->get();
+        return view('admin.tagihan.tagihan', compact('tagihan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // 🔹 2. Generate tagihan dari penggunaan
+    public function generate()
     {
-        //
+        $penggunaan = Penggunaan::with(['pelanggan.tarif'])->get();
+
+        foreach ($penggunaan as $p) {
+
+            // cek kalau sudah ada tagihan, skip
+            $cek = Tagihan::where('id_penggunaan', $p->id_penggunaan)->first();
+            if ($cek) continue;
+
+            $jumlah_meter = $p->meter_akhir - $p->meter_awal;
+            $tarif = $p->pelanggan->tarif->tarif_per_kwh;
+
+            Tagihan::create([
+                'id_penggunaan' => $p->id_penggunaan,
+                'id_pelanggan' => $p->id_pelanggan,
+                'bulan' => $p->bulan,
+                'tahun' => $p->tahun,
+                'jumlah_meter' => $jumlah_meter,
+                'status' => 'belum_lunas'
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Tagihan berhasil digenerate');
+    }
+    // 🔹 3. Detail tagihan
+    public function show($id)
+    {
+        $tagihan = Tagihan::with(['pelanggan', 'penggunaan'])->findOrFail($id);
+        return view('admin.tagihan.show', compact('tagihan'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // 🔹 4. Update status (lunas / belum)
+    public function updateStatus(Request $request, $id)
     {
-        //
-    }
+        $request->validate([
+            'status' => 'required|in:lunas,belum_lunas'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $tagihan = Tagihan::findOrFail($id);
+        $tagihan->update([
+            'status' => $request->status
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return redirect()->back()->with('success', 'Status berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(string $id)
     {
-        //
+        $tagihan = Tagihan::findOrFail($id);
+        $tagihan->delete();
+
+        return redirect()->back()->with('success', 'Tagihan dihapus');
     }
 }

@@ -15,6 +15,7 @@ class Pembayaran extends Model
         'id_user',
         'tgl_pembayaran',
         'bulan_bayar',
+        'total_tagihan',
         'biaya_admin',
         'total_bayar'
     ];

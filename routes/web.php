@@ -4,7 +4,9 @@ use App\Http\Controllers\pelanggan\LoginPelangganController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\TarifController;
 use App\Http\Controllers\Admin\PelangganController;
-use App\Http\Controllers\Admin\PenggunaanController;
+use App\Http\Controllers\Admin\PenggunaanController;   
+use App\Http\Controllers\Admin\TagihanController;
+use App\Http\Controllers\Admin\PembayaranController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +42,17 @@ Route::post('/admin/penggunaan/store', [PenggunaanController::class, 'store'])->
 Route::get('/admin/penggunaan/edit/{id}', [PenggunaanController::class, 'edit'])->name('admin.penggunaan.edit');
 Route::put('/admin/penggunaan/update/{id}', [PenggunaanController::class, 'update'])->name('admin.penggunaan.update');
 Route::delete('/admin/penggunaan/delete/{id}', [PenggunaanController::class, 'delete'])->name('admin.penggunaan.delete');
-//tagihan CRUD
+//tagihan 
+Route::get('/admin/tagihan', [TagihanController::class, 'tagihan'])->name('admin.tagihan.tagihan');
+Route::get('/admin/tagihan/generate', [TagihanController::class, 'generate'])->name('admin.tagihan.generate');
+Route::get('/admin/tagihan/{id}', [TagihanController::class, 'show'])->name('admin.tagihan.show');
+Route::put('/admin/tagihan/update-status/{id}', [TagihanController::class, 'updateStatus'])->name('admin.tagihan.updateStatus');
+Route::delete('/admin/tagihan/delete/{id}', [TagihanController::class, 'delete'])->name('admin.tagihan.delete');
+//pembayaran
+Route::get('/admin/pembayaran', [PembayaranController::class, 'pembayaran'])->name('admin.pembayaran.pembayaran');
+Route::get('/admin/pembayaran/create', [PembayaranController::class, 'create'])->name('admin.pembayaran.create');
+Route::post('/admin/pembayaran/store', [PembayaranController::class, 'store'])->name('admin.pembayaran.store');
+Route::delete('/admin/pembayaran/delete/{id}', [PembayaranController::class, 'delete'])->name('admin.pembayaran.delete');
+
 
 Route::get('/petugas', [AuthController::class, 'petugas'])->name('petugas.index');
