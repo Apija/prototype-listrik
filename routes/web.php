@@ -1,6 +1,5 @@
 <?php
-
-use App\Http\Controllers\pelanggan\LoginPelangganController;
+//admin
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\TarifController;
 use App\Http\Controllers\Admin\PelangganController;
@@ -15,13 +14,19 @@ use App\Http\Controllers\Petugas\PetugasPenggunaanController;
 use App\Http\Controllers\Petugas\PetugasTagihanController;
 use App\Http\Controllers\Petugas\PetugasPembayaranController;
 
+//pelanggan
+use App\Http\Controllers\pelanggan\LoginPelangganController;
+use App\Http\Controllers\pelanggan\ProfilePelangganController;
+
 
 
 use Illuminate\Support\Facades\Route;
-
-//Route::get('/', [LoginPelangganController::class, 'index'])->name('login');
-//Route::post('/login', [LoginPelangganController::class, 'autheticate'])->name('login.proses');
-//Route::get('/logout', [LoginPelangganController::class, 'logout'])->name('logout');
+//pelangan
+Route::get('/', [LoginPelangganController::class, 'index'])->name('pelanggan.login');
+Route::post('/pelanggan/login', [LoginPelangganController::class, 'autheticate'])->name('pelanggan.login.autheticate');
+Route::get('/pelanggan/logout', [LoginPelangganController::class, 'logout'])->name('pelanggan.logout');
+Route::get('/pelanggan/dashboard', [ProfilePelangganController::class, 'dashboard'])->name('pelanggan.dashboard');
+Route::get('/pelanggan/profil', [ProfilePelangganController::class, 'profil'])->name('pelanggan.profil');
 
 //admin dan petugas
 Route::get('/login', [AuthController::class, 'login'])->name('login');

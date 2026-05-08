@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>ListrikQu - Admin Dashboard</title>
+    <title>ListrikQu - Pelanggan Dashboard</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
@@ -44,7 +44,7 @@
             <!-- Sidebar (Menu Samping) -->
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="{{ route('admin.index') }}" class="app-brand-link">
+                    <a href="{{ route('pelanggan.dashboard') }}" class="app-brand-link">
                         <span class="app-brand-text demo menu-text fw-bold">ListrikQu</span>
                     </a>
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
@@ -56,57 +56,18 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item {{ request()->is('admin') ? 'active' : '' }}">
-                        <a href="{{ route('admin.index') }}" class="menu-link">
+                    <li class="menu-item {{ request()->is('pelanggan') ? 'active' : '' }}">
+                        <a href="{{ route('pelanggan.dashboard') }}" class="menu-link">
                             <i class="menu-icon bx bx-home-circle"></i>
                             <div>Dashboard</div>
                         </a>
                     </li>
 
-                    <!-- Pelanggan -->
-                    <li class="menu-item {{ request()->is('admin/pelanggan*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.pelanggan.pelanggan') }}" class="menu-link">
+                    <!-- Profil saya -->
+                    <li class="menu-item {{ request()->is('pelanggan/profil*') ? 'active' : '' }}">
+                        <a href="{{ route('pelanggan.profil') }}" class="menu-link">
                             <i class="menu-icon bx bx-user"></i>
-                            <div>Pelanggan</div>
-                        </a>
-                    </li>
-
-                    <!-- Pengunaan Listrik -->
-                    <li class="menu-item {{ request()->is('admin/penggunaan*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.penggunaan.penggunaan') }}" class="menu-link">
-                            <i class="menu-icon bx bx-bolt-circle"></i>
-                            <div>Penggunaan Listrik</div>
-                        </a>
-                    </li>
-
-                    <!-- Tagihan -->
-                    <li class="menu-item {{ request()->is('admin/tagihan*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.tagihan.tagihan') }}" class="menu-link">
-                            <i class="menu-icon bx bx-receipt"></i>
-                            <div>Tagihan</div>
-                        </a>
-                    </li>
-
-                    <!-- Pembayaran -->
-                    <li class="menu-item {{ request()->is('admin/pembayaran*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.pembayaran.pembayaran') }}" class="menu-link">
-                            <i class="menu-icon bx bx-credit-card"></i>
-                            <div>Pembayaran</div>
-                        </a>
-                    </li>
-
-                    <!-- Tarif -->
-                    <li class="menu-item {{ request()->is('admin/tarif*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.tarif.tarif') }}" class="menu-link">
-                            <i class="menu-icon bx bx-money"></i>
-                            <div>Tarif Listrik</div>
-                        </a>
-                    </li>
-                    <!-- Admin -->
-                    <li class="menu-item {{ request()->is('admin/user*') ? 'active' : '' }}">
-                        <a href="{{route ('admin.user.user')}}" class="menu-link">
-                            <i class="menu-icon bx bx-user"></i>
-                            <div>Admin</div>
+                            <div>Profil Saya</div>
                         </a>
                     </li>
                 </ul>
@@ -154,7 +115,7 @@
                                                 </div>
                                                 <div class="flex-grow-1">
                                                     <span class="fw-medium d-block">John Doe</span>
-                                                    <small class="text-muted">Admin</small>
+                                                    <small class="text-muted">Pelanggan</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -163,7 +124,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}">
+                                        <a class="dropdown-item" href="{{ route('pelanggan.logout') }}">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>

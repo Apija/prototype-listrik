@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\pelanggan;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Models\Pelanggan;
 
 class LoginPelangganController extends Controller
 {
@@ -12,7 +13,8 @@ class LoginPelangganController extends Controller
     //menampilkan login
     public function index()
     {
-        return view('login');
+        $tagih = Pelanggan::all();
+        return view('pelanggan.login', compact('tagih'));
     }
 
     //verifikasi use and password
@@ -33,8 +35,8 @@ class LoginPelangganController extends Controller
             'password' => $request->password,
         ];
 
-        if (Auth::attempt($infologin)) {
-            return redirect()->route('laundry');
+        if (Auth::guard('pelanggan')->attempt($infologin)) {
+            return redirect()->route('pelanggan.dashboard');
         } else {
             // return 'gagal'
             return redirect('/')->withErrors('username dan password tidak valid');
@@ -45,10 +47,10 @@ class LoginPelangganController extends Controller
     // logout
     public function logout(Request $request)
     {
-        Auth::logout(); // logout user
+        Auth::guard('pelanggan')->logout(); // logout user
         $request->session()->invalidate(); // hapus session
         $request->session()->regenerateToken(); // regenerasi token CSRF
 
-        return redirect('/login')->with('success', 'Anda telah logout');
+        return redirect('/')->with('success', 'Anda telah logout');
     }
 }

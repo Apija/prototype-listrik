@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Tarif;
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
@@ -16,7 +17,6 @@ class PelangganController extends Controller
     {
         $pelanggan = Tarif::all();
         $pelanggan = Pelanggan::with(['tarif'])->get();
-        $query = Pelanggan::with(['tarif']);
 
         return view('admin.pelanggan.pelanggan', compact('pelanggan'));
     }
@@ -58,7 +58,7 @@ class PelangganController extends Controller
 
         Pelanggan::create([
             'username' => $request->username,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'nomor_kwh' => $request->nomor_kwh,
             'nama_pelanggan' => $request->nama_pelanggan,
             'alamat' => $request->alamat,
@@ -115,7 +115,7 @@ class PelangganController extends Controller
         //update data produk
         $pelanggan->update([
             'username' => $request->username,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'nomor_kwh' => $request->nomor_kwh,
             'nama_pelanggan' => $request->nama_pelanggan,
             'alamat' => $request->alamat,

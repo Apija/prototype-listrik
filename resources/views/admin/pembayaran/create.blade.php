@@ -18,15 +18,20 @@
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="tagihanSelect">Nama Pelanggan</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('id_tagihan') is-invalid @enderror"
-                                            id="tagihanSelect" name="id_tagihan">
+                                        <select id="tagihanSelect" class="form-select" name="id_tagihan">
                                             <option value="">- Pilih Pelanggan (Tagihan) -</option>
-                                            @foreach ($tagihan as $tg)
-                                                {{-- Kita simpan data tambahan (ID pelanggan & nominal) di atribut data-* untuk dibaca JS --}}
-                                                <option value="{{ $tg->id_tagihan }}"
-                                                    data-pelanggan="{{ $tg->id_pelanggan }}"
-                                                    data-total="{{ $tg->total_bayar }}">
-                                                    {{ $tg->pelanggan->nama_pelanggan }} - (Bulan: {{ $tg->bulan }})
+                                            @foreach ($tagihan as $t)
+                                                @php
+                                                    // Hitung nominal tagihan: (Meter Akhir - Meter Awal) * Tarif
+                                                    $pemakaian =
+                                                        $t->penggunaan->meter_akhir - $t->penggunaan->meter_awal;
+                                                    $tarif = $t->pelanggan->tarif->tarif_per_kwh;
+                                                    $nominalTagihan = $pemakaian * $tarif;
+                                                @endphp
+
+                                                <option value="{{ $t->id_tagihan }}" data-total="{{ $nominalTagihan }}"
+                                                    data-pelanggan="{{ $t->id_pelanggan }}">
+                                                    {{ $t->pelanggan->nama_pelanggan }} - (Bulan: {{ $t->bulan }})
                                                 </option>
                                             @endforeach
                                         </select>
@@ -40,10 +45,12 @@
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="id_user">Admin Pengelola</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('id_user') is-invalid @enderror" id="id_user" name="id_user">
+                                        <select class="form-control @error('id_user') is-invalid @enderror" id="id_user"
+                                            name="id_user">
                                             <option value="">- Pilih Nama Admin -</option>
                                             @foreach ($users as $u)
-                                                <option value="{{ $u->id_user }}" {{ old('id_user') == $u->id_user ? 'selected' : '' }}>
+                                                <option value="{{ $u->id_user }}"
+                                                    {{ old('id_user') == $u->id_user ? 'selected' : '' }}>
                                                     {{ $u->nama_admin }}
                                                 </option>
                                             @endforeach
@@ -70,7 +77,8 @@
                                         <button type="submit" class="btn btn-primary">
                                             <i class='bx bx-check-circle me-1'></i> Proses Pembayaran
                                         </button>
-                                        <a href="{{ route('admin.pembayaran.pembayaran') }}" class="btn btn-outline-secondary">Cancel</a>
+                                        <a href="{{ route('admin.pembayaran.pembayaran') }}"
+                                            class="btn btn-outline-secondary">Cancel</a>
                                     </div>
                                 </div>
                             </form>
@@ -81,9 +89,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label fw-bold">Total Seluruh Pembayaran</label>
                                 <div class="col-sm-9">
-                                    <span class="text-success fw-bold">
-                                        Rp {{ number_format($pembayaran->sum('total_bayar'), 0, ',', '.') }}
-                                    </span>
+                                    <span class="text-success fw-bold" id="display_total">Rp 0</span>
                                 </div>
                             </div>
 
@@ -108,24 +114,30 @@
     <!-- Script Otomatisasi Perhitungan -->
     <script>
         document.getElementById('tagihanSelect').addEventListener('change', function() {
-            // Ambil opsi yang dipilih
             const selected = this.options[this.selectedIndex];
-            
-            // Ambil data dari atribut data-*
+
+            // Pastikan dataset dibaca dengan benar
             const totalTagihan = parseInt(selected.dataset.total || 0);
             const idPelanggan = selected.dataset.pelanggan || '';
             const biayaAdmin = 2500;
             const totalBayar = totalTagihan + biayaAdmin;
 
-            // Masukkan ID pelanggan ke input hidden
-            document.getElementById('id_pelanggan').value = idPelanggan;
+            // 1. Update ID Pelanggan (jika ada input hidden)
+            const inputId = document.getElementById('id_pelanggan');
+            if (inputId) inputId.value = idPelanggan;
 
-            // Update tampilan angka (Format Rupiah)
-            document.getElementById('total_tagihan').value = 
-                'Rp ' + totalTagihan.toLocaleString('id-ID');
+            // 2. Update Tampilan Angka (Gunakan innerText jika itu teks berwarna hijau di gambar)
+            // Sesuaikan ID 'display_total' dengan ID yang ada di HTML bagian angka hijau itu
+            const displayTotal = document.getElementById('display_total');
+            if (displayTotal) {
+                displayTotal.innerText = 'Rp ' + totalBayar.toLocaleString('id-ID');
+            }
 
-            document.getElementById('total_bayar').value = 
-                'Rp ' + totalBayar.toLocaleString('id-ID');
+            // Jika kamu juga ingin mengupdate input field (jika ada)
+            const inputTotal = document.getElementById('total_bayar');
+            if (inputTotal) {
+                inputTotal.value = 'Rp ' + totalBayar.toLocaleString('id-ID');
+            }
         });
     </script>
 @endsection

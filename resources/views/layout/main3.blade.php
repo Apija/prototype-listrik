@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>ListrikQu - Admin Dashboard</title>
+    <title>ListrikQu - Petugas Dashboard</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
@@ -175,7 +175,7 @@
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                , made with ❤️ by <a href="#" class="footer-link fw-medium">Laundry Koe</a>
+                                , made with ❤️ by <a href="#" class="footer-link fw-medium">ListrikQu</a>
                             </div>
                         </div>
                     </footer>
