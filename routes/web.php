@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\PelangganController;
 use App\Http\Controllers\Admin\PenggunaanController;   
 use App\Http\Controllers\Admin\TagihanController;
 use App\Http\Controllers\Admin\PembayaranController;
+use App\Http\Controllers\Admin\UserController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +55,13 @@ Route::get('/admin/pembayaran', [PembayaranController::class, 'pembayaran'])->na
 Route::get('/admin/pembayaran/create', [PembayaranController::class, 'create'])->name('admin.pembayaran.create');
 Route::post('/admin/pembayaran/store', [PembayaranController::class, 'store'])->name('admin.pembayaran.store');
 Route::delete('/admin/pembayaran/delete/{id}', [PembayaranController::class, 'delete'])->name('admin.pembayaran.delete');
-
+Route::get('/admin/pembayaran/show/{id}', [PembayaranController::class, 'show'])->name('admin.pembayaran.show');
+//admin user CRUD
+Route::get('/admin/user', [UserController::class, 'user'])->name('admin.user.user');
+Route::get('/admin/user/create', [UserController::class, 'create'])->name('admin.user.create');
+Route::post('/admin/user/store', [UserController::class, 'store'])->name('admin.user.store');
+Route::get('/admin/user/edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
+Route::put('/admin/user/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
+Route::delete('/admin/user/delete/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
 
 Route::get('/petugas', [AuthController::class, 'petugas'])->name('petugas.index');

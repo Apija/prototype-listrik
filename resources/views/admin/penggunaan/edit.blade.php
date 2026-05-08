@@ -1,22 +1,32 @@
 @extends('layout.main')
 @section('content')
-    <!-- Content wrapper -->
+    <!-- Pembungkus Utama Konten -->
     <div class="content-wrapper">
-        <!-- Content -->
+        
+        <!-- Konten Utama dengan Grid Responsif -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <!-- Basic Layout & Basic with Icons -->
+            
+            <!-- Pengaturan Baris dan Spasi Antar Elemen -->
             <div class="row mb-6 gy-6">
-                <!-- Basic Layout -->
+                
+                <!-- Kolom Layout Form -->
                 <div class="col-xxl">
                     <div class="card">
+                        <!-- Judul Form Edit -->
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <h5 class="mb-0">Edit Penggunaan</h5>
                         </div>
+                        
                         <div class="card-body">
+                            <!-- Form Update Data -->
+                            <!-- Mengarah ke route update dengan parameter ID penggunaan -->
                             <form action="{{ route('admin.penggunaan.update', $id->id_penggunaan) }}" method="POST"
                                 enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
+                                
+                                @csrf {{-- Token keamanan CSRF Laravel --}}
+                                @method('PUT') {{-- Mengubah method POST menjadi PUT untuk proses Update --}}
+
+                                <!-- Input Nama Pelanggan (Dropdown) -->
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="id_pelanggan">Nama Pelanggan</label>
                                     <div class="col-sm-10">
@@ -24,6 +34,7 @@
                                             id="id_pelanggan" name="id_pelanggan">
                                             <option value="">Pilih Nama Pelanggan</option>
                                             @foreach ($pelanggan as $p)
+                                                {{-- Logika 'selected' untuk menandai pelanggan yang sedang diedit --}}
                                                 <option value="{{ $p->id_pelanggan }}"
                                                     {{ $p->id_pelanggan == $id->id_pelanggan ? 'selected' : '' }}>
                                                     {{ $p->nama_pelanggan }}
@@ -35,12 +46,15 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <!-- Input Bulan (Dropdown) -->
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="bulan">Bulan </label>
                                     <div class="col-sm-10">
                                         <select class="form-control @error('bulan') is-invalid @enderror" id="bulan"
-                                            name="bulan" value="{{ $id->bulan }}">
+                                            name="bulan">
                                             <option value="">- Pilih Bulan -</option>
+                                            {{-- Menandai bulan terpilih berdasarkan data lama di database ($id->bulan) --}}
                                             <option value="1" {{ $id->bulan == 1 ? 'selected' : '' }}>Januari</option>
                                             <option value="2" {{ $id->bulan == 2 ? 'selected' : '' }}>Februari</option>
                                             <option value="3" {{ $id->bulan == 3 ? 'selected' : '' }}>Maret</option>
@@ -56,6 +70,8 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <!-- Input Tahun -->
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="tahun">Tahun</label>
                                     <div class="col-sm-10">
@@ -66,6 +82,8 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <!-- Input Meter Awal -->
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="meter_awal">Meter Awal</label>
                                     <div class="col-sm-10">
@@ -76,6 +94,8 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <!-- Input Meter Akhir -->
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="meter_akhir">Meter Akhir</label>
                                     <div class="col-sm-10">
@@ -87,13 +107,22 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <!-- Tombol Aksi Update -->
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Send</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class='bx bx-send me-1'></i>Upadate Data
+                                        </button>
+                                        <a href="{{ route('admin.penggunaan.penggunaan') }}" class="btn btn-outline-secondary">
+                                            <i class='bx bx-x me
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-            @endsection
+            </div>
+        </div>
+    </div>
+@endsection

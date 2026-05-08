@@ -13,12 +13,12 @@
                     <div class="card">
                         <!-- Header Kartu -->
                         <div class="card-header d-flex align-items-center justify-content-between">
-                            <h5 class="mb-0">Edit Data Pelanggan</h5>
+                            <h5 class="mb-0">Edit Data Admin</h5>
                         </div>
 
                         <div class="card-body">
                             <!-- Awal Form: Mengarah ke fungsi update di controller dengan parameter ID -->
-                            <form action="{{ route('admin.pelanggan.update', $id->id_pelanggan) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.user.update', $id->id_user) }}" method="POST" enctype="multipart/form-data">
                                 @csrf          <!-- Token Keamanan Laravel -->
                                 @method('PUT') <!-- Method Spoofing: Laravel memerlukan PUT/PATCH untuk update data -->
 
@@ -46,56 +46,32 @@
                                     </div>
                                 </div>
 
-                                <!-- Input Nomor KWH -->
+                                <!-- Input Nama Admin -->
                                 <div class="row mb-6">
-                                    <label class="col-sm-2 col-form-label" for="nomor_kwh">Nomor KWH</label>
+                                    <label class="col-sm-2 col-form-label" for="nama_admin">Nama Admin</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control @error('nomor_kwh') is-invalid @enderror"
-                                            id="nomor_kwh" name="nomor_kwh" value="{{ $id->nomor_kwh }}">
-                                        @error('nomor_kwh')
+                                        <input type="text" class="form-control @error('nama_admin') is-invalid @enderror"
+                                            id="nama_admin" name="nama_admin" value="{{ $id->nama_admin }}">
+                                        @error('nama_admin')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <!-- Input Nama Pelanggan -->
+                                <!-- Dropdown Pilih Daya (Level) -->
                                 <div class="row mb-6">
-                                    <label class="col-sm-2 col-form-label" for="nama_pelanggan">Nama Pelanggan</label>
+                                    <label class="col-sm-2 col-form-label" for="id_level">Level</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control @error('nama_pelanggan') is-invalid @enderror"
-                                            id="nama_pelanggan" name="nama_pelanggan" value="{{ $id->nama_pelanggan }}">
-                                        @error('nama_pelanggan')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <!-- Input Alamat -->
-                                <div class="row mb-6">
-                                    <label class="col-sm-2 col-form-label" for="alamat">Alamat</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control @error('alamat') is-invalid @enderror"
-                                            id="alamat" name="alamat" value="{{ $id->alamat }}">
-                                        @error('alamat')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <!-- Dropdown Pilih Daya (Tarif) -->
-                                <div class="row mb-6">
-                                    <label class="col-sm-2 col-form-label" for="id_tarif">Daya</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-select @error('id_tarif') is-invalid @enderror" id="id_tarif" name="id_tarif">
-                                            <option value="">Pilih Daya</option>
-                                            @foreach ($tarif as $t)
-                                                <!-- Logika Penyeleksian Otomatis: Jika ID Tarif sama dengan data di DB, maka tandai sebagai 'selected' -->
-                                                <option value="{{ $t->id_tarif }}" {{ $t->id_tarif == $id->id_tarif ? 'selected' : '' }}>
-                                                    {{ $t->daya }} VA
+                                        <select class="form-select @error('id_level') is-invalid @enderror" id="id_level" name="id_level">
+                                            <option value="">Pilih Level</option>
+                                            @foreach ($level as $l)
+                                                <!-- Logika Penyeleksian Otomatis: Jika ID Level sama dengan data di DB, maka tandai sebagai 'selected' -->
+                                                <option value="{{ $l->id_level }}" {{ $l->id_level == $id->id_level ? 'selected' : '' }}>
+                                                    {{ $l->nama_level }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('id_tarif')
+                                        @error('id_level')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -107,7 +83,7 @@
                                         <button type="submit" class="btn btn-primary">
                                             <i class='bx bx-send me-1'></i> Update Data
                                         </button>
-                                        <a href="{{ route('admin.pelanggan.pelanggan') }}" class="btn btn-outline-secondary">
+                                        <a href="{{ route('admin.user.user') }}" class="btn btn-outline-secondary">
                                             <i class='bx bx-x me-1'></i> Batal
                                         </a>
                                     </div>

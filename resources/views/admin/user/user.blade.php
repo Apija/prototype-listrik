@@ -4,67 +4,64 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="content-wrapper">
             
-            <!-- Area Utama Tabel -->
+            <!-- Konten Utama -->
             <div class="container-xxl flex-grow-1 container-p-y">
                 
-                <!-- Card Container untuk Tabel -->
+                <!-- Kartu Tabel Admin -->
                 <div class="card">
-                    <h5 class="card-header">Penggunaan Listrik</h5>
+                    <h5 class="card-header">Data Admin</h5>
                     
+                    <!-- Area Tombol Aksi (Tambah Data) -->
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="d-flex align-items-center gap-2" style="width: auto;">
-                            <!-- Tombol untuk menuju halaman tambah data -->
-                            <a href="{{ route('admin.penggunaan.create') }}" class="btn btn-primary text-nowrap">
+                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary text-nowrap">
                                 <i class="bx bx-plus me-1"></i> Add Data
                             </a>
                         </div>
                     </div>
 
-                    <!-- Responsive Table Wrapper -->
+                    <!-- Tabel Responsive -->
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Pelanggan</th>
-                                    <th>Bulan</th>
-                                    <th>Tahun</th>
-                                    <th>Meter Awal</th>
-                                    <th>Meter Akhir</th>
+                                    <th>Username</th>
+                                    <th>Nomor KWH</th>
+                                    <th>Level</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
+                            
                             <tbody class="table-border-bottom-0">
-                                {{-- Melakukan perulangan data dari variabel $penggunaan --}}
-                                @foreach ($penggunaan as $pe)
+                                <!-- Looping Data Pelanggan dari Controller -->
+                                @foreach ($user as $u)
                                     <tr>
                                         <td>
-                                            <i class="text-danger me-4"></i>
-                                            {{-- Menampilkan nomor urut otomatis --}}
+                                            <!-- Menampilkan nomor urut otomatis -->
                                             <span>{{ $loop->iteration }}</span>
                                         </td>
-                                        {{-- Mengambil nama pelanggan melalui relasi model --}}
-                                        <td>{{ $pe->pelanggan->nama_pelanggan }}</td>
-                                        <td>{{ $pe->bulan }}</td>
-                                        <td>{{ $pe->tahun }}</td>
-                                        <td>{{ $pe->meter_awal }}</td>
-                                        <td>{{ $pe->meter_akhir }}</td>
+                                        <td>{{ $u->username }}</td>
+                                        <td>{{ $u->nama_admin }}</td>
+                                        <td>{{ $u->level->nama_level }}</td>
+                                        
                                         <td>
-                                            <!-- Dropdown Menu untuk Aksi (Edit/Delete) -->
+                                            <!-- Menu Dropdown untuk Aksi (Edit/Delete) -->
                                             <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                                     <i class="icon-base bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <!-- Link ke Halaman Edit -->
-                                                    <a class="dropdown-item" href="{{ route('admin.penggunaan.edit', $pe->id_penggunaan) }}">
+                                                    
+                                                    <!-- Tombol Edit -->
+                                                    <a class="dropdown-item" href="{{ route('admin.user.edit', $u->id_user) }}">
                                                         <i class="icon-base bx bx-edit-alt me-1"></i> Edit
                                                     </a>
 
-                                                    <!-- Form Hapus Data (Disembunyikan untuk keamanan) -->
-                                                    <form id="delete-form-{{ $pe->id_penggunaan }}"
-                                                        action="{{ route('admin.penggunaan.delete', $pe->id_penggunaan) }}" method="POST"
+                                                    <!-- Form Hapus (Hidden) -->
+                                                    <!-- Dibuat form terpisah karena method DELETE memerlukan CSRF token -->
+                                                    <form id="delete-form-{{ $u->id }}"
+                                                        action="{{ route('admin.user.delete', $u->id_user) }}" method="POST"
                                                         style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
@@ -73,11 +70,12 @@
                                                     <!-- Tombol Hapus dengan Konfirmasi JavaScript -->
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="event.preventDefault(); 
-                                                        if (confirm('Yakin ingin menghapus data ini?')) {
-                                                            document.getElementById('delete-form-{{ $pe->id_penggunaan }}').submit();
+                                                        if (confirm('Yakin ingin menghapus data admin ini?')) {
+                                                            document.getElementById('delete-form-{{ $u->id }}').submit();
                                                         }">
                                                         <i class="icon-base bx bx-trash me-1"></i> Delete
                                                     </a>
+
                                                 </div>
                                             </div>
                                         </td>

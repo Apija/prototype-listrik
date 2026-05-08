@@ -1,19 +1,24 @@
 @extends('layout.main')
+
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
+
+                <!-- Card Container untuk Data Tagihan -->
                 <div class="card">
-                    <h5 class="card-header">Data Tagihan Listrik
-                    </h5>
+                    <h5 class="card-header">Data Tagihan Listrik</h5>
+
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="d-flex align-items-center gap-2" style="width: auto;">
+                            <!-- Tombol untuk menjalankan fungsi Generate Tagihan otomatis -->
                             <a href="{{ route('admin.tagihan.generate') }}" class="btn btn-primary text-nowrap">
                                 Generate Tagihan
                             </a>
-
                         </div>
                     </div>
+
+                    <!-- Tabel Responsive -->
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <thead>
@@ -29,51 +34,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- Looping data tagihan dari database --}}
                                 @foreach ($tagihan as $tg)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        {{-- Mengambil data nama dan nomor KWH dari relasi model pelanggan --}}
                                         <td>{{ $tg->pelanggan->nama_pelanggan }}</td>
                                         <td>{{ $tg->pelanggan->nomor_kwh }}</td>
 
-                                        {{-- Bulan (ubah ke nama) --}}
+                                        <!-- Logika Konversi Angka Bulan ke Nama Bulan (Contoh: 1 -> Januari) -->
                                         <td>
                                             {{ \Carbon\Carbon::create()->month($tg->bulan)->translatedFormat('F') }}
                                         </td>
 
                                         <td>{{ $tg->tahun }}</td>
                                         <td>{{ $tg->jumlah_meter }}</td>
-                                        {{-- Status --}}
+
+                                        <!-- Menampilkan Badge Berwarna berdasarkan Status Pembayaran -->
                                         <td>
-                                            <div class="dropdown">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-primary dropdown-toggle"
-                                                    data-bs-toggle="dropdown">
-                                                    {{ $tg->status }}
-                                                </button>
-
-                                                <div class="dropdown-menu">
-
-                                                    <form action="{{ route('admin.tagihan.updateStatus', $tg->id_tagihan) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input type="hidden" name="status_pembayaran" value="Belum Lunas">
-                                                        <button type="submit" class="dropdown-item">
-                                                            <i class="bx bx-x-circle me-1 text-primary"></i> Belum Lunas
-                                                        </button>
-                                                    </form>
-                                                    <form action="{{ route('admin.tagihan.updateStatus', $tg->id_tagihan) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input type="hidden" name="status_pembayaran" value="Lunas">
-                                                        <button type="submit" class="dropdown-item">
-                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Lunas
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                            <span
+                                                class="badge bg-label-{{ $tg->status == 'lunas' ? 'success' : 'danger' }}">
+                                                {{ $tg->status == 'lunas' ? 'Lunas' : 'Belum Lunas' }}
+                                            </span>
                                         </td>
+
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -81,21 +65,30 @@
                                                     <i class="icon-base bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
+                                                    <!-- Tombol Detail untuk melihat rincian tagihan -->
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('admin.tagihan.show', $tg->id_tagihan) }}">
+                                                        <i class="icon-base bx bx-show"></i> Detail
+                                                    </a>
+                                                    <!-- Form Delete Tagihan -->
                                                     <form id="delete-form-{{ $tg->id_tagihan }}"
-                                                        action="{{ route('admin.penggunaan.delete', $tg->id_tagihan) }}"
+                                                        action="{{ route('admin.tagihan.delete', $tg->id_tagihan) }}"
                                                         method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
+
+                                                    <!-- Link Konfirmasi Hapus Data -->
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="event.preventDefault(); 
                                                         if (confirm('Yakin ingin menghapus data ini?')) {
-                                                            document.getElementById('delete-form-{{ $tg->id_tagihan }}').submit();}"><i
-                                                            class="icon-base bx bx-trash me-1"></i> Delete</a>
+                                                            document.getElementById('delete-form-{{ $tg->id_tagihan }}').submit();
+                                                        }">
+                                                        <i class="icon-base bx bx-trash me-1"></i> Delete
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -103,7 +96,7 @@
                     </div>
                 </div>
 
-                {{-- Tambahkan bagian dashboard lainnya --}}
+                {{-- Tempat untuk konten tambahan jika diperlukan --}}
             </div>
         </div>
     </div>

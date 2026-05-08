@@ -3,9 +3,11 @@
     data-template="vertical-menu-template-free">
 
 <head>
-    <title>Laundry</title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <meta name="description" content="" />
+    <title>ListrikQu - Admin Dashboard</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
@@ -16,25 +18,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/iconify-icons.css') }}" />
+    <!-- Icons & Boxicons -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
+        class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-
-    <!-- Boxicons CSS -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href='https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <link href='https://cdn.boxicons.com/3.0.8/fonts/filled/boxicons-filled.min.css' rel='stylesheet'>
-    <link href='https://cdn.boxicons.com/3.0.8/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}">
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
-    <!-- Helpers -->
+    <!-- Helpers & Config -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('assets/js/config.js') }}"></script>
 </head>
@@ -43,60 +41,70 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
 
-            {{-- Sidebar --}}
+            <!-- Sidebar (Menu Samping) -->
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="/" class="app-brand-link">
-                        <span class="app-brand-text demo menu-text fw-bold">Laundry Koe</span>
+                    <a href="{{ route('admin.index') }}" class="app-brand-link">
+                        <span class="app-brand-text demo menu-text fw-bold">ListrikQu</span>
                     </a>
-
-                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-                        <i class="bx bx-chevron-left d-block d-xl-none"></i>
+                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
+                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
                     </a>
                 </div>
 
                 <div class="menu-inner-shadow"></div>
 
-                <ul class="menu-inner">
-                    <li class="menu-item">
+                <ul class="menu-inner py-1">
+                    <!-- Dashboard -->
+                    <li class="menu-item {{ request()->is('admin') ? 'active' : '' }}">
+                        <a href="{{ route('admin.index') }}" class="menu-link">
+                            <i class="menu-icon bx bx-home-circle"></i>
+                            <div>Dashboard</div>
+                        </a>
+                    </li>
+
+                    <!-- Pelanggan -->
+                    <li class="menu-item {{ request()->is('admin/pelanggan*') ? 'active' : '' }}">
                         <a href="{{ route('admin.pelanggan.pelanggan') }}" class="menu-link">
                             <i class="menu-icon bx bx-user"></i>
                             <div>Pelanggan</div>
                         </a>
                     </li>
 
-                    <li class="menu-item">
+                    <!-- Pengunaan Listrik -->
+                    <li class="menu-item {{ request()->is('admin/penggunaan*') ? 'active' : '' }}">
                         <a href="{{ route('admin.penggunaan.penggunaan') }}" class="menu-link">
-                            <i class="menu-icon bx bx-data"></i>
-                            <div>Pengunaan Listrik</div>
+                            <i class="menu-icon bx bx-bolt-circle"></i>
+                            <div>Penggunaan Listrik</div>
                         </a>
                     </li>
-                    <li class="menu-item">
+
+                    <!-- Tagihan -->
+                    <li class="menu-item {{ request()->is('admin/tagihan*') ? 'active' : '' }}">
                         <a href="{{ route('admin.tagihan.tagihan') }}" class="menu-link">
                             <i class="menu-icon bx bx-receipt"></i>
                             <div>Tagihan</div>
                         </a>
                     </li>
-                    <li class="menu-item">
+
+                    <!-- Pembayaran -->
+                    <li class="menu-item {{ request()->is('admin/pembayaran*') ? 'active' : '' }}">
                         <a href="{{ route('admin.pembayaran.pembayaran') }}" class="menu-link">
                             <i class="menu-icon bx bx-credit-card"></i>
                             <div>Pembayaran</div>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
-                            <i class="menu-icon bx bx-file" /></i>
-                            <div>Laporan</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
+
+                    <!-- Tarif -->
+                    <li class="menu-item {{ request()->is('admin/tarif*') ? 'active' : '' }}">
                         <a href="{{ route('admin.tarif.tarif') }}" class="menu-link">
-                            <i class="menu-icon bx bx-dollar-circle"></i>
-                            <div>Tarif</div>
+                            <i class="menu-icon bx bx-money"></i>
+                            <div>Tarif Listrik</div>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
+                    <!-- Admin -->
+                    <li class="menu-item {{ request()->is('admin/user*') ? 'active' : '' }}">
+                        <a href="{{route ('admin.user.user')}}" class="menu-link">
                             <i class="menu-icon bx bx-user"></i>
                             <div>Admin</div>
                         </a>
@@ -104,118 +112,110 @@
                 </ul>
             </aside>
 
-            {{-- Page Content --}}
-            <div class="layout-page">
 
-                {{-- Navbar --}}
-                <nav
-                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme">
-                    <div class="layout-menu-toggle navbar-nav d-xl-none">
-                        <a class="nav-item nav-link px-0" href="javascript:void(0)">
-                            <i class="bx bx-menu icon-md"></i>
+            <div class="layout-page">
+                <!-- Navbar (Bagian Atas) -->
+                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar">
+                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                            <i class="bx bx-menu bx-sm"></i>
                         </a>
                     </div>
 
-                    <div class="navbar-nav-right d-flex align-items-center w-100">
-
-                        {{-- Search Bar --}}
-                        <div class="navbar-nav align-items-center me-auto">
+                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                        <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search icon-md me-2"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Search...">
+                                <i class="bx bx-search fs-4 lh-0"></i>
+                                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2"
+                                    placeholder="Search..." aria-label="Search..." />
                             </div>
                         </div>
 
-                        {{-- Github & User Menu --}}
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);"
-                                data-bs-toggle="dropdown">
-                                <div class="avatar avatar-online">
-                                    <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar avatar-online">
-                                                    <img src="../assets/img/avatars/1.png" alt
-                                                        class="w-px-40 h-auto rounded-circle" />
+                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                            <!-- User Dropdown -->
+                            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                    data-bs-toggle="dropdown">
+                                    <div class="avatar avatar-online">
+                                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt
+                                            class="w-px-40 h-auto rounded-circle" />
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <div class="avatar avatar-online">
+                                                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt
+                                                            class="w-px-40 h-auto rounded-circle" />
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <span class="fw-medium d-block">John Doe</span>
+                                                    <small class="text-muted">Admin</small>
                                                 </div>
                                             </div>
-                                            <div class="flex-grow-1">
-                                                <h6 class="mb-0">John Doe</h6>
-                                                <small class="text-body-secondary">Admin</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider my-1"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('logout') }}">
-                                        <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}">
+                                            <i class="bx bx-power-off me-2"></i>
+                                            <span class="align-middle">Log Out</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
 
-                {{-- Content Wrapper --}}
+                <!-- Content Wrapper -->
                 <div class="content-wrapper">
-                    @yield('content')
-                </div>
-
-                {{-- Footer --}}
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex justify-content-between py-2">
-                        <div>
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>,
-                            made with ❤️ by <a href="" class="footer-link">Laundry</a>
-                        </div>
-
-                        <div class="d-none d-lg-inline-block">
-                            <a href="#" class="footer-link me-4">Laundry</a>
-                            <a href="#" class="footer-link me-4">Documentation</a>
-                            <a href="#" class="footer-link me-4">Support</a>
-                        </div>
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        {{-- Bagian ini akan diisi oleh konten dari file lain --}}
+                        @yield('content')
                     </div>
-                </footer>
 
+                    <!-- Footer -->
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div
+                            class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                            <div class="mb-2 mb-md-0">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                , made with ❤️ by <a href="#" class="footer-link fw-medium">Laundry Koe</a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
             </div>
         </div>
 
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <style>
-        .bx {
-            font-family: 'boxicons' !important;
-            font-weight: normal;
-            font-style: normal;
-            font-variant: normal;
-            line-height: 1;
-            display: inline-block;
-            text-transform: none;
-            speak: none;
-            -webkit-font-smoothing: antialiased;
-        }
-    </style>
-    <!-- JS -->
+
+    <!-- Core JS -->
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+
+    <!-- Vendors JS -->
     <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+
+    <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+
+    {{-- Stack untuk script tambahan dari halaman anak --}}
+    @stack('scripts')
 </body>
 
 </html>
